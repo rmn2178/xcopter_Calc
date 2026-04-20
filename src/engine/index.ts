@@ -22,9 +22,23 @@ import { derivePropConstants, propDiscArea, thrustFromRpmGrams } from './propell
 import { solveHoverPoint } from './solver'
 
 function thermalCoefficient(cooling: 'open' | 'closed', statorDiameterMm: number, statorHeightMm: number): number {
-  const volume = Math.PI * Math.pow(statorDiameterMm / 2, 2) * Math.max(statorHeightMm, 0.1)
-  const base = 80000 / Math.max(volume, 1)
-  return base * (cooling === 'closed' ? 1.6 : 1.0)
+  const d = Math.max(statorDiameterMm, 1)
+  const h = Math.max(statorHeightMm, 1)
+  const sideAreaMm2 = Math.PI * d * h
+  const endAreaMm2 = 2 * Math.PI * Math.pow(d / 2, 2)
+  const exposedAreaCm2 = (sideAreaMm2 + endAreaMm2) / 100
+
+  // Approximate steady-state thermal resistance for small outrunner motors.
+  const baseThetaCPerW = 35 / Math.max(exposedAreaCm2, 5)
+  const coolingFactor = cooling === 'closed' ? 1.35 : 1
+  const theta = baseThetaCPerW * coolingFactor
+
+  return Math.min(Math.max(theta, 0.8), 4.5)
+}
+
+function estimatedMotorTempC(ambientC: number, currentA: number, rmOhm: number, thetaCPerW: number): number {
+  const copperLossW = Math.pow(Math.max(currentA, 0), 2) * Math.max(rmOhm, 0)
+  return ambientC + thetaCPerW * copperLossW
 }
 
 function clamp(v: number, low: number, high: number): number {
@@ -190,7 +204,7 @@ export function runCalculator(input: InputState): CalculationResult {
   })
 
   const hoverPointRaw = motorPointFromCurrent(
-    hoverSolve.currentA,
+    clamp(hoverSolve.currentA, input.motor.noLoadCurrentA, iMax),
     battery.vOc,
     battery.rPackOhm,
     input.accessories.currentDrainA,
@@ -254,8 +268,8 @@ export function runCalculator(input: InputState): CalculationResult {
     input.motor.statorDiameterMm,
     input.motor.statorHeightMm,
   )
-  const tMotorHover = tempC + kThermal * Math.pow(hoverPointRaw.currentA, 2) * rmOhm
-  const tMotorMax = tempC + kThermal * Math.pow(maxPointRaw.currentA, 2) * rmOhm
+  const tMotorHover = estimatedMotorTempC(tempC, hoverPointRaw.currentA, rmOhm, kThermal)
+  const tMotorMax = estimatedMotorTempC(tempC, maxPointRaw.currentA, rmOhm, kThermal)
 
   const motorHover = toOperatingPoint(
     hoverPointRaw,
@@ -280,20 +294,22 @@ export function runCalculator(input: InputState): CalculationResult {
     thrustOptG,
     input.motor.weightG,
     input.motor.poles,
-    tempC + kThermal * Math.pow(optPointRaw.currentA, 2) * rmOhm,
+    estimatedMotorTempC(tempC, optPointRaw.currentA, rmOhm, kThermal),
     maxThrustPerMotorG,
   )
 
   const iHoverTotal = input.general.rotors * motorHover.currentA + input.accessories.currentDrainA
   const iMaxTotal = input.general.rotors * motorMax.currentA + input.accessories.currentDrainA
+  const hoverCurrentLimited = hoverSolve.currentA > iMax
 
   const vPackHover = packVoltage(battery.vOc, iHoverTotal, battery.rPackOhm)
   const vPackMax = packVoltage(battery.vOc, iMaxTotal, battery.rPackOhm)
 
   const usableMah = battery.capacityTotalMah * 0.8
-  const tHover = (usableMah / Math.max(iHoverTotal * 1000, 1e-6)) * 60
+  const tHoverRaw = (usableMah / Math.max(iHoverTotal * 1000, 1e-6)) * 60
+  const tHover = hoverCurrentLimited ? 0 : tHoverRaw
   const tMin = (usableMah / Math.max(iMaxTotal * 1000, 1e-6)) * 60
-  const iMixed = 0.6 * iHoverTotal + 0.4 * iMaxTotal
+  const iMixed = hoverCurrentLimited ? iMaxTotal : 0.6 * iHoverTotal + 0.4 * iMaxTotal
   const tMixed = (usableMah / Math.max(iMixed * 1000, 1e-6)) * 60
 
   const tTotalMaxG = input.general.rotors * motorMax.thrustG
@@ -372,7 +388,7 @@ export function runCalculator(input: InputState): CalculationResult {
       mechanicalPowerW: p.mechanicalPowerW,
       efficiencyPct: p.efficiency * 100,
       heatW: Math.max(0, p.electricPowerW - p.mechanicalPowerW),
-      temperatureC: tempC + kThermal * Math.pow(current, 2) * rmOhm,
+      temperatureC: estimatedMotorTempC(tempC, current, rmOhm, kThermal),
     })
   }
 
@@ -394,7 +410,7 @@ export function runCalculator(input: InputState): CalculationResult {
     cannotLiftOff: tTotalMaxG < allUpWeightG,
     overspin: motorMax.rpm > input.motor.kv * 4.35 * input.battery.seriesCells,
     batteryOverloaded: iMaxTotal > battery.maxCurrentA,
-    hoverOverCurrent: motorHover.currentA > iMax,
+    hoverOverCurrent: hoverCurrentLimited,
     voltageLimited: vPackMax < battery.vOc * 0.85,
   }
 
@@ -402,6 +418,9 @@ export function runCalculator(input: InputState): CalculationResult {
   if (warnings.cannotLiftOff) errorMessages.push('Cannot lift off - total maximum thrust is below all-up weight.')
   if (warnings.batteryOverloaded) errorMessages.push('Battery C-rate/current exceeded by the current setup.')
   if (warnings.overspin) errorMessages.push('Propeller overspin risk detected at maximum operating point.')
+  if (warnings.hoverOverCurrent) {
+    errorMessages.push('Hover point is not achievable within current limits; hover values are capped to maximum allowed current.')
+  }
 
   return {
     airDensity: atmosphere.rho,

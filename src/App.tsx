@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RangeEstimatorChart } from './components/charts/RangeEstimatorChart'
-import { MotorCharacteristicsChart } from './components/charts/MotorCharacteristicsChart'
 import { AccessoriesSection } from './components/inputs/AccessoriesSection'
 import { BatterySection } from './components/inputs/BatterySection'
 import { ControllerSection } from './components/inputs/ControllerSection'
@@ -19,6 +17,12 @@ import { defaultInput } from './defaults'
 import { runCalculator } from './engine'
 import { statusClass } from './utils/colors'
 import type { InputState, SpeedUnit } from './types'
+import { isLikelyInputState, sanitizeInputState } from './utils/inputSanitizer'
+
+const RangeEstimatorChart = lazy(() => import('./components/charts/RangeEstimatorChart').then((m) => ({ default: m.RangeEstimatorChart })))
+const MotorCharacteristicsChart = lazy(() =>
+  import('./components/charts/MotorCharacteristicsChart').then((m) => ({ default: m.MotorCharacteristicsChart })),
+)
 
 interface SavedProfile {
   name: string
@@ -27,6 +31,27 @@ interface SavedProfile {
 }
 
 const STORAGE_KEY = 'xcopter_profiles'
+const STATEMENT_KEY = 'xcopter_statement_ok'
+
+function parseSharedInputFromHash(): InputState | null {
+  const rawHash = window.location.hash
+  if (!rawHash.startsWith('#cfg=')) return null
+
+  try {
+    const encoded = rawHash.slice(5)
+    const json = decodeURIComponent(window.atob(encoded))
+    const parsed: unknown = JSON.parse(json)
+    if (!isLikelyInputState(parsed)) return null
+    return sanitizeInputState(parsed)
+  } catch {
+    return null
+  }
+}
+
+function toSharedHash(input: InputState): string {
+  const json = JSON.stringify(input)
+  return `#cfg=${window.btoa(encodeURIComponent(json))}`
+}
 
 function listProfiles(): SavedProfile[] {
   const raw = localStorage.getItem(STORAGE_KEY)
@@ -51,14 +76,38 @@ function useDebouncedInput(input: InputState, delayMs: number): InputState {
 
 function App() {
   const { t, i18n } = useTranslation()
-  const [input, setInput] = useState<InputState>(defaultInput)
+  const sharedInput = parseSharedInputFromHash()
+  const [input, setInput] = useState<InputState>(sharedInput ?? defaultInput)
   const [speedUnit, setSpeedUnit] = useState<SpeedUnit>('kmh')
   const [expertMode, setExpertMode] = useState(true)
-  const [profileName, setProfileName] = useState('')
+  const [profileName, setProfileName] = useState(sharedInput ? 'Shared Setup' : '')
   const [profiles, setProfiles] = useState<SavedProfile[]>(() => listProfiles())
+  const [statementAccepted, setStatementAccepted] = useState(() => localStorage.getItem(STATEMENT_KEY) === '1')
+  const [copiedShare, setCopiedShare] = useState(false)
 
   const debouncedInput = useDebouncedInput(input, 150)
-  const result = useMemo(() => runCalculator(debouncedInput), [debouncedInput])
+  const safeDebouncedInput = useMemo(() => sanitizeInputState(debouncedInput), [debouncedInput])
+  const result = useMemo(() => runCalculator(safeDebouncedInput), [safeDebouncedInput])
+
+  const triggerCalculate = () => {
+    setInput((prev) => ({ ...prev }))
+  }
+
+  const shareCurrentSetup = async () => {
+    const url = `${window.location.origin}${window.location.pathname}${toSharedHash(input)}`
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopiedShare(true)
+      window.setTimeout(() => setCopiedShare(false), 1300)
+    } catch {
+      window.prompt('Copy this share URL:', url)
+    }
+  }
+
+  const acceptStatement = () => {
+    localStorage.setItem(STATEMENT_KEY, '1')
+    setStatementAccepted(true)
+  }
 
   const saveProfile = () => {
     const name = profileName.trim()
@@ -75,7 +124,7 @@ function App() {
   const loadProfile = (name: string) => {
     const selected = listProfiles().find((item) => item.name === name)
     if (!selected) return
-    setInput(selected.inputs)
+    setInput(sanitizeInputState(selected.inputs))
     setProfileName(selected.name)
   }
 
@@ -93,18 +142,36 @@ function App() {
   }
 
   const importProfile = async (file: File) => {
-    const parsed = (JSON.parse(await file.text()) ?? null) as SavedProfile | null
-    if (!parsed?.name || !parsed.inputs) return
+    const parsedUnknown: unknown = JSON.parse(await file.text())
+    if (!parsedUnknown || typeof parsedUnknown !== 'object') return
+    const parsed = parsedUnknown as SavedProfile
+    if (!parsed.name || !isLikelyInputState(parsed.inputs)) return
+    const sanitizedInputs = sanitizeInputState(parsed.inputs)
     const all = listProfiles().filter((item) => item.name !== parsed.name)
-    all.push(parsed)
+    all.push({ ...parsed, inputs: sanitizedInputs })
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all))
     setProfiles(all)
-    setInput(parsed.inputs)
+    setInput(sanitizedInputs)
     setProfileName(parsed.name)
   }
 
   return (
     <main className="app-shell">
+      {!statementAccepted && (
+        <section className="statement-overlay" role="dialog" aria-modal>
+          <div className="statement-modal">
+            <h3>Statement for using this calculator</h3>
+            <p>All values are calculated estimates and may deviate from real measurements.</p>
+            <p>Before flight, recheck actual max values and ensure all limits stay within manufacturer specs.</p>
+            <p>Do you accept this statement?</p>
+            <div className="statement-actions">
+              <button onClick={acceptStatement}>Ok</button>
+              <button onClick={() => window.location.reload()}>Cancel</button>
+            </div>
+          </div>
+        </section>
+      )}
+
       <header className="top-header">
         <div>
           <h1>xcopterCalc</h1>
@@ -118,6 +185,8 @@ function App() {
           <button className="toggle-view" onClick={() => setExpertMode((v) => !v)}>
             {expertMode ? '◀ Simple view' : 'Expert view ▶'}
           </button>
+          <button className="toggle-view" onClick={triggerCalculate}>calculate</button>
+          <button className="toggle-view" onClick={() => void shareCurrentSetup()}>{copiedShare ? 'copied' : 'share'}</button>
           <label>Range Axis</label>
           <select value={speedUnit} onChange={(e) => setSpeedUnit(e.target.value as SpeedUnit)}>
             <option value="kmh">km/h + km</option>
@@ -241,25 +310,29 @@ function App() {
           <WarningsCard warnings={result.warnings} />
 
           {expertMode && (
-            <RangeEstimatorChart
-              data={result.rangeChart}
-              speedUnit={speedUnit}
-              peakSpeedKmh={result.peakRangeSpeedKmh}
-            />
+            <Suspense fallback={<section className="chart-card"><h3>Range Estimator</h3><p>Loading chart...</p></section>}>
+              <RangeEstimatorChart
+                data={result.rangeChart}
+                speedUnit={speedUnit}
+                peakSpeedKmh={result.peakRangeSpeedKmh}
+              />
+            </Suspense>
           )}
 
           {expertMode && (
-            <MotorCharacteristicsChart
-              data={result.motorChart}
-              hoverPoint={{
-                currentA: result.motorHover.currentA,
-                thrustG: result.motorHover.thrustG,
-              }}
-              maxPoint={{
-                currentA: result.motorMax.currentA,
-                thrustG: result.motorMax.thrustG,
-              }}
-            />
+            <Suspense fallback={<section className="chart-card"><h3>Motor Characteristics</h3><p>Loading chart...</p></section>}>
+              <MotorCharacteristicsChart
+                data={result.motorChart}
+                hoverPoint={{
+                  currentA: result.motorHover.currentA,
+                  thrustG: result.motorHover.thrustG,
+                }}
+                maxPoint={{
+                  currentA: result.motorMax.currentA,
+                  thrustG: result.motorMax.thrustG,
+                }}
+              />
+            </Suspense>
           )}
         </section>
       </section>
