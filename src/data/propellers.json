@@ -1,0 +1,24 @@
+[
+  {
+    "name": "10x4.5 2-blade",
+    "diameter": 10,
+    "diameterUnit": "inch",
+    "pitch": 4.5,
+    "pitchUnit": "inch",
+    "blades": 2,
+    "tConst": 0.109,
+    "pConst": 0.053,
+    "propWeightG": 14
+  },
+  {
+    "name": "12x4.0 3-blade",
+    "diameter": 12,
+    "diameterUnit": "inch",
+    "pitch": 4,
+    "pitchUnit": "inch",
+    "blades": 3,
+    "tConst": 0.124,
+    "pConst": 0.062,
+    "propWeightG": 21
+  }
+]

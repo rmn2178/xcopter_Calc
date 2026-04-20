@@ -1,0 +1,26 @@
+[
+  {
+    "name": "LiPo 4S 5000",
+    "cellType": "LiPo",
+    "seriesCells": 4,
+    "parallelCells": 1,
+    "cellCapacityMah": 5000,
+    "maxDischargeC": 50,
+    "internalResistanceMOhm": 5,
+    "nominalVoltage": 3.7,
+    "fullChargeVoltage": 4.2,
+    "cellWeightG": 100
+  },
+  {
+    "name": "Li-Ion 6S 3000",
+    "cellType": "Li-Ion",
+    "seriesCells": 6,
+    "parallelCells": 1,
+    "cellCapacityMah": 3000,
+    "maxDischargeC": 15,
+    "internalResistanceMOhm": 12,
+    "nominalVoltage": 3.6,
+    "fullChargeVoltage": 4.2,
+    "cellWeightG": 48
+  }
+]

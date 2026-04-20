@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Custom 920Kv",
+    "kv": 920,
+    "noLoadCurrentA": 0.5,
+    "currentLimitA": 30,
+    "powerLimitW": 500,
+    "statorResistanceMOhm": 72,
+    "caseLengthMm": 26,
+    "poles": 14,
+    "weightG": 110
+  },
+  {
+    "name": "Heavy Lift 380Kv",
+    "kv": 380,
+    "noLoadCurrentA": 0.7,
+    "currentLimitA": 45,
+    "powerLimitW": 1200,
+    "statorResistanceMOhm": 55,
+    "caseLengthMm": 30,
+    "poles": 14,
+    "weightG": 210
+  }
+]

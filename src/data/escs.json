@@ -1,0 +1,16 @@
+[
+  {
+    "name": "40A BLHeli",
+    "continuousCurrentA": 40,
+    "burstCurrentA": 55,
+    "internalResistanceMOhm": 2,
+    "weightG": 30
+  },
+  {
+    "name": "60A HV",
+    "continuousCurrentA": 60,
+    "burstCurrentA": 80,
+    "internalResistanceMOhm": 1.5,
+    "weightG": 38
+  }
+]
