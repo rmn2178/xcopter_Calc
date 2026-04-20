@@ -78,6 +78,63 @@ h3 {
   align-items: center;
 }
 
+.toggle-view {
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.profile-bar {
+  padding-top: 10px;
+}
+
+.profile-controls {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(5, auto);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.profile-controls button,
+.profile-controls select,
+.profile-controls input,
+.import-label {
+  min-height: 36px;
+}
+
+.import-label {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.import-label input {
+  display: none;
+}
+
+.error-banner {
+  border: 1px solid #ef4444;
+  border-radius: 10px;
+  background: rgba(127, 29, 29, 0.35);
+  color: #fecaca;
+  padding: 10px 12px;
+}
+
+.error-banner p {
+  margin: 4px 0;
+}
+
+.print-header {
+  display: none;
+}
+
 .grid-layout {
   display: grid;
   grid-template-columns: 390px 1fr;
@@ -205,4 +262,52 @@ select {
   .grid-layout {
     grid-template-columns: 1fr;
   }
+
+  .profile-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media print {
+  .left-panel,
+  .top-header,
+  .profile-bar {
+    display: none !important;
+  }
+
+  .grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .chart-card {
+    page-break-inside: avoid;
+    max-height: 200px;
+  }
+
+  .print-header {
+    display: block !important;
+    margin-bottom: 12px;
+    font-size: 11px;
+  }
+
+  body {
+    font-size: 10px;
+    color: #000;
+    background: #fff;
+  }
+
+  * {
+    box-shadow: none !important;
+  }
+}
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
 }

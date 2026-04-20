@@ -1,4 +1,5 @@
 import type { OperatingPoint } from '../../types'
+import { dualTemperature } from '../../utils/display'
 import { OutputCard, Metric } from './OutputCard'
 
 interface Props {
@@ -28,7 +29,7 @@ export function MotorCard({
       <Metric label="Efficiency" value={`${data.efficiencyPct.toFixed(1)} %`} statusClassName={efficiencyClass} />
       <Metric label="Thrust" value={`${data.thrustG.toFixed(0)} g`} />
       <Metric label="Power-Weight" value={`${data.powerWeightWkg.toFixed(1)} W/kg`} />
-      <Metric label="Est. Temperature" value={`${data.motorTempC.toFixed(1)} C`} statusClassName={tempClass} />
+      <Metric label="Est. Temperature" value={dualTemperature(data.motorTempC)} statusClassName={tempClass} />
       <Metric label="Controller EPM" value={data.controllerEpm.toFixed(0)} />
       {showHoverFields && (
         <>

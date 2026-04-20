@@ -27,7 +27,7 @@ export function solveHoverPoint(ctx: HoverSolveContext, targetThrustG: number): 
   let high = kvEff * ctx.vOc
   let bestRpm = 0
 
-  for (let i = 0; i < 60; i += 1) {
+  for (let i = 0; i < 50; i += 1) {
     const mid = (low + high) / 2
     const thrust = thrustFromRpmGrams(mid, ctx.rho, ctx.rho0, {
       diameterInch: ctx.diameterInch,
@@ -45,6 +45,9 @@ export function solveHoverPoint(ctx: HoverSolveContext, targetThrustG: number): 
     }
 
     bestRpm = mid
+    if (Math.abs(high - low) < 0.1) {
+      break
+    }
   }
 
   const currentA = currentForRpmWithSag(bestRpm, ctx.vOc, ctx.rPack, accessoryA, rotors, {
@@ -94,6 +97,10 @@ export function solveCurrentForTargetRpm(
       low = mid
     } else {
       high = mid
+    }
+
+    if (Math.abs(high - low) < 0.1) {
+      break
     }
   }
 

@@ -15,11 +15,17 @@ import {
 } from '../utils/colors'
 import { mpsToFpm, toCelsius, toGrams, toHpa, toInch, toMeters } from '../utils/units'
 import { computeAirDensity } from './atmosphere'
-import { buildBatteryState, packVoltage } from './battery'
+import { buildBatteryState, cellVoltageForState, DEFAULT_BY_TYPE, packVoltage } from './battery'
 import { findCurrentFromPowerLimit, motorPointFromCurrent } from './motor'
 import { buildRangeCurve, climbRateMps, estimateFrontalArea, maxSpeedMps } from './performance'
-import { estimateDefaultConstants, propDiscArea, thrustFromRpmGrams } from './propeller'
+import { derivePropConstants, propDiscArea, thrustFromRpmGrams } from './propeller'
 import { solveHoverPoint } from './solver'
+
+function thermalCoefficient(cooling: 'open' | 'closed', statorDiameterMm: number, statorHeightMm: number): number {
+  const volume = Math.PI * Math.pow(statorDiameterMm / 2, 2) * Math.max(statorHeightMm, 0.1)
+  const base = 80000 / Math.max(volume, 1)
+  return base * (cooling === 'closed' ? 1.6 : 1.0)
+}
 
 function clamp(v: number, low: number, high: number): number {
   return Math.min(Math.max(v, low), high)
@@ -68,9 +74,27 @@ export function runCalculator(input: InputState): CalculationResult {
   const diameterInch = toInch(input.propeller.diameter, input.propeller.diameterUnit)
   const pitchInch = toInch(input.propeller.pitch, input.propeller.pitchUnit)
 
-  const defaults = estimateDefaultConstants(diameterInch, pitchInch, input.propeller.blades)
+  const defaults = derivePropConstants(
+    diameterInch,
+    pitchInch,
+    input.propeller.blades,
+    input.propeller.yokeTwistDeg,
+  )
   const tConst = input.propeller.tConst > 0 ? input.propeller.tConst : defaults.tConst
   const pConst = input.propeller.pConst > 0 ? input.propeller.pConst : defaults.pConst
+
+  const chemistryDefault = DEFAULT_BY_TYPE[input.battery.cellType]
+  const normalizedBattery = {
+    ...input.battery,
+    nominalVoltage: input.battery.nominalVoltage > 0 ? input.battery.nominalVoltage : chemistryDefault.nominal,
+    fullChargeVoltage: input.battery.fullChargeVoltage > 0 ? input.battery.fullChargeVoltage : chemistryDefault.full,
+  }
+  const effectiveVocPerCell = cellVoltageForState(
+    input.battery.cellType,
+    input.battery.chargeState,
+    normalizedBattery.fullChargeVoltage,
+    normalizedBattery.nominalVoltage,
+  )
 
   const atmosphere = computeAirDensity({
     qnhHpa,
@@ -78,7 +102,9 @@ export function runCalculator(input: InputState): CalculationResult {
     elevationM,
   })
 
-  const battery = buildBatteryState(input.battery)
+  const battery = buildBatteryState(normalizedBattery)
+  battery.vOc = effectiveVocPerCell * input.battery.seriesCells
+  battery.ratedV = normalizedBattery.nominalVoltage * input.battery.seriesCells
   const rmOhm = input.motor.statorResistanceMOhm / 1000
   const rEscOhm = input.esc.internalResistanceMOhm / 1000
 
@@ -223,7 +249,11 @@ export function runCalculator(input: InputState): CalculationResult {
     gearRatio: input.propeller.gearRatio,
   })
 
-  const kThermal = 30
+  const kThermal = thermalCoefficient(
+    input.motor.cooling,
+    input.motor.statorDiameterMm,
+    input.motor.statorHeightMm,
+  )
   const tMotorHover = tempC + kThermal * Math.pow(hoverPointRaw.currentA, 2) * rmOhm
   const tMotorMax = tempC + kThermal * Math.pow(maxPointRaw.currentA, 2) * rmOhm
 
@@ -338,8 +368,11 @@ export function runCalculator(input: InputState): CalculationResult {
     motorChart.push({
       currentA: current,
       thrustG: thrust,
-      powerW: p.mechanicalPowerW,
+      electricPowerW: p.electricPowerW,
+      mechanicalPowerW: p.mechanicalPowerW,
       efficiencyPct: p.efficiency * 100,
+      heatW: Math.max(0, p.electricPowerW - p.mechanicalPowerW),
+      temperatureC: tempC + kThermal * Math.pow(current, 2) * rmOhm,
     })
   }
 
@@ -362,8 +395,13 @@ export function runCalculator(input: InputState): CalculationResult {
     overspin: motorMax.rpm > input.motor.kv * 4.35 * input.battery.seriesCells,
     batteryOverloaded: iMaxTotal > battery.maxCurrentA,
     hoverOverCurrent: motorHover.currentA > iMax,
-    voltageLimited: vPackMax < motorMax.backEmfV,
+    voltageLimited: vPackMax < battery.vOc * 0.85,
   }
+
+  const errorMessages: string[] = []
+  if (warnings.cannotLiftOff) errorMessages.push('Cannot lift off - total maximum thrust is below all-up weight.')
+  if (warnings.batteryOverloaded) errorMessages.push('Battery C-rate/current exceeded by the current setup.')
+  if (warnings.overspin) errorMessages.push('Propeller overspin risk detected at maximum operating point.')
 
   return {
     airDensity: atmosphere.rho,
@@ -412,6 +450,11 @@ export function runCalculator(input: InputState): CalculationResult {
       totalDiscAreaIn2: totalDiscAreaM2 * 1550.0031,
       engineFailureStatus,
     },
+    wattmeter: {
+      currentA: iHoverTotal,
+      voltageV: vPackHover,
+      powerW: vPackHover * iHoverTotal,
+    },
     motorChart,
     rangeChart,
     hoverSpeedKmh: 0,
@@ -425,5 +468,6 @@ export function runCalculator(input: InputState): CalculationResult {
       escMargin: escMarginStatus(motorMax.currentA, input.esc.continuousCurrentA),
     },
     warnings,
+    errorMessages,
   }
 }

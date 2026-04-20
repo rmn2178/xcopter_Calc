@@ -1,4 +1,5 @@
 import type { BatteryCardData } from '../../types'
+import { dualWeight } from '../../utils/display'
 import { OutputCard, Metric } from './OutputCard'
 
 interface Props {
@@ -18,7 +19,7 @@ export function BatteryCard({ data, batteryCClass }: Props) {
       <Metric label="Min Flight Time" value={`${data.minFlightMin.toFixed(1)} min`} />
       <Metric label="Mixed Flight Time" value={`${data.mixedFlightMin.toFixed(1)} min`} />
       <Metric label="Hover Flight Time" value={`${data.hoverFlightMin.toFixed(1)} min`} />
-      <Metric label="Weight" value={`${data.weightG.toFixed(0)} g`} />
+      <Metric label="Weight" value={dualWeight(data.weightG)} />
     </OutputCard>
   )
 }

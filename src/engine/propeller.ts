@@ -11,13 +11,19 @@ export interface PropConfig {
   gearRatio: number
 }
 
-export function estimateDefaultConstants(diameterInch: number, pitchInch: number, blades: number) {
+export function derivePropConstants(
+  diameterInch: number,
+  pitchInch: number,
+  blades: number,
+  twistDeg: number,
+) {
   const pitchRatio = pitchInch / Math.max(diameterInch, 1e-6)
   const bladeFactor = 1 + Math.max(0, blades - 2) * 0.075
+  const twistFactor = 1 + twistDeg * 0.012
 
   return {
-    tConst: 0.1045 * pitchRatio * bladeFactor,
-    pConst: 0.06 * pitchRatio * bladeFactor,
+    tConst: 0.1045 * pitchRatio * bladeFactor * twistFactor,
+    pConst: 0.0601 * pitchRatio * bladeFactor * twistFactor,
   }
 }
 

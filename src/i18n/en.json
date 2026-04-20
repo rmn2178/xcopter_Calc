@@ -1,0 +1,21 @@
+{
+  "general.title": "General",
+  "general.modelWeight": "Model Weight",
+  "general.numRotors": "# of Rotors",
+  "battery.title": "Battery Cell",
+  "battery.capacity": "Cell Capacity",
+  "motor.title": "Motor",
+  "motor.kv": "Kv (rpm/V)",
+  "prop.title": "Propeller",
+  "output.battery.hoverTime": "Hover Flight Time",
+  "output.multi.twr": "Thrust-Weight Ratio",
+  "output.multi.maxSpeed": "Max Speed",
+  "output.multi.range": "Est. Range",
+  "app.subtitle": "Open multicopter drive-system calculator",
+  "profiles.title": "Profiles",
+  "profiles.load": "Load...",
+  "profiles.save": "Save",
+  "profiles.export": "Export JSON",
+  "profiles.import": "Import JSON",
+  "profiles.reset": "Reset"
+}

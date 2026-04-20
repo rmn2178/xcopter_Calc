@@ -1,0 +1,21 @@
+{
+  "general.title": "Allgemein",
+  "general.modelWeight": "Modellgewicht",
+  "general.numRotors": "Anzahl Rotoren",
+  "battery.title": "Akkuzelle",
+  "battery.capacity": "Zellenkapazitat",
+  "motor.title": "Motor",
+  "motor.kv": "Kv (U/min/V)",
+  "prop.title": "Propeller",
+  "output.battery.hoverTime": "Schwebeflugzeit",
+  "output.multi.twr": "Schub-Gewichts-Verhaltnis",
+  "output.multi.maxSpeed": "Max. Geschwindigkeit",
+  "output.multi.range": "Geschatzte Reichweite",
+  "app.subtitle": "Offener Multicopter-Antriebsrechner",
+  "profiles.title": "Profile",
+  "profiles.load": "Laden...",
+  "profiles.save": "Speichern",
+  "profiles.export": "JSON exportieren",
+  "profiles.import": "JSON importieren",
+  "profiles.reset": "Zurucksetzen"
+}

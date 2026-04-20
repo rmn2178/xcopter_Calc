@@ -1,6 +1,6 @@
 import type { BatteryInput, ChargeState, CellType } from '../types'
 
-const DEFAULT_BY_TYPE: Record<CellType, { nominal: number; full: number; low: number; normal: number }> = {
+export const DEFAULT_BY_TYPE: Record<CellType, { nominal: number; full: number; low: number; normal: number }> = {
   LiPo: { nominal: 3.7, full: 4.2, low: 3.7, normal: 3.85 },
   LiHV: { nominal: 3.8, full: 4.35, low: 3.75, normal: 3.9 },
   'Li-Ion': { nominal: 3.6, full: 4.2, low: 3.3, normal: 3.7 },

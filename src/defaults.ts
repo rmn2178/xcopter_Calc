@@ -18,6 +18,7 @@ export const defaultInput: InputState = {
     pressureUnit: 'hPa',
   },
   battery: {
+    presetId: 'gensace-gtech-5000',
     cellType: 'LiPo',
     chargeState: 'full',
     seriesCells: 4,
@@ -30,10 +31,13 @@ export const defaultInput: InputState = {
     cellWeightG: 100,
   },
   esc: {
+    presetId: 'hobbywing-xrotor-40a',
     escType: 'Custom',
     continuousCurrentA: 40,
     burstCurrentA: 55,
     internalResistanceMOhm: 2,
+    voltageMax: 35,
+    protocol: 'DSHOT300',
     weightG: 30,
   },
   accessories: {
@@ -41,6 +45,7 @@ export const defaultInput: InputState = {
     weightG: 80,
   },
   motor: {
+    presetId: 'sunnysky-x2216-1250',
     manufacturerModel: 'Custom',
     kv: 920,
     noLoadCurrentA: 0.5,
@@ -48,11 +53,15 @@ export const defaultInput: InputState = {
     currentLimitA: 30,
     powerLimitW: 500,
     statorResistanceMOhm: 72,
+    cooling: 'open',
     caseLengthMm: 26,
+    statorDiameterMm: 22,
+    statorHeightMm: 16,
     poles: 14,
     weightG: 110,
   },
   propeller: {
+    presetId: 'apc-10x4.7-sf',
     propType: 'Custom',
     yokeTwistDeg: 0,
     diameter: 10,

@@ -1,4 +1,5 @@
 import type { TotalDriveData } from '../../types'
+import { dualWeight } from '../../utils/display'
 import { OutputCard, Metric } from './OutputCard'
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 export function TotalDriveCard({ data, twrClass }: Props) {
   return (
     <OutputCard title="Total Drive">
-      <Metric label="Drive Weight" value={`${data.driveWeightG.toFixed(0)} g`} />
+      <Metric label="Drive Weight" value={dualWeight(data.driveWeightG)} />
       <Metric label="Thrust-Weight" value={data.thrustWeightRatio.toFixed(2)} statusClassName={twrClass} />
       <Metric label="Current @ Hover" value={`${data.currentHoverA.toFixed(2)} A`} />
       <Metric label="P(in) @ Hover" value={`${data.pinHoverW.toFixed(1)} W`} />

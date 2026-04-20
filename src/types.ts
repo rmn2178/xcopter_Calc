@@ -4,11 +4,82 @@ export type TemperatureUnit = 'c' | 'f'
 export type PressureUnit = 'hPa' | 'inHg'
 export type SpeedUnit = 'kmh' | 'mph'
 export type PropLengthUnit = 'inch' | 'mm'
+export type CoolingType = 'open' | 'closed'
 
 export type WeightMode = 'inclDrive' | 'lessBattery' | 'withoutDrive'
 export type RotorLayout = 'flat' | 'coaxial'
 export type CellType = 'LiPo' | 'LiHV' | 'Li-Ion' | 'NiMH' | 'Custom'
 export type ChargeState = 'full' | 'normal' | 'low'
+
+export interface MotorPreset {
+  id: string
+  manufacturer: string
+  series: string
+  kv: number
+  discontinued: boolean
+  cooling: CoolingType
+  poles: number
+  Rm_mOhm: number
+  I0_A: number
+  I0_at_V: number
+  limit_A: number
+  limit_W: number
+  weight_g: number
+  case_length_mm: number
+  stator_diameter_mm: number
+  stator_height_mm: number
+}
+
+export interface BatteryPreset {
+  id: string
+  brand: string
+  model: string
+  chemistry: 'LiPo' | 'LiHV' | 'Li-Ion' | 'NiMH'
+  capacity_mAh: number
+  C_cont: number
+  C_max: number
+  Rm_mOhm: number
+  V_nominal: number
+  V_full: number
+  weight_g: number
+  S_default: number
+  P_default: number
+}
+
+export interface ESCPreset {
+  id: string
+  manufacturer: string
+  model: string
+  A_cont: number
+  A_burst: number
+  Rm_mOhm: number
+  voltage_max: number
+  weight_g: number
+  protocol: 'PWM' | 'DSHOT300' | 'DSHOT600' | 'BLHeli32'
+}
+
+export interface PropPreset {
+  id: string
+  brand: string
+  model: string
+  diameter_inch: number
+  pitch_inch: number
+  blades: number
+  twist_deg: number
+  TConst: number
+  PConst: number
+  weight_g: number
+}
+
+export interface UnitPrefs {
+  weight: 'g' | 'oz'
+  length: 'mm' | 'inch'
+  temperature: 'C' | 'F'
+  speed: 'km/h' | 'mph'
+  pressure: 'hPa' | 'inHg'
+  altitude: 'm' | 'ft'
+  distance: 'km' | 'mi'
+}
 
 export interface GeneralInput {
   modelWeight: number
@@ -28,6 +99,7 @@ export interface GeneralInput {
 }
 
 export interface BatteryInput {
+  presetId?: string
   cellType: CellType
   chargeState: ChargeState
   seriesCells: number
@@ -41,10 +113,13 @@ export interface BatteryInput {
 }
 
 export interface EscInput {
+  presetId?: string
   escType: string
   continuousCurrentA: number
   burstCurrentA: number
   internalResistanceMOhm: number
+  voltageMax: number
+  protocol: 'PWM' | 'DSHOT300' | 'DSHOT600' | 'BLHeli32'
   weightG: number
 }
 
@@ -54,6 +129,7 @@ export interface AccessoriesInput {
 }
 
 export interface MotorInput {
+  presetId?: string
   manufacturerModel: string
   kv: number
   noLoadCurrentA: number
@@ -61,12 +137,16 @@ export interface MotorInput {
   currentLimitA: number
   powerLimitW: number
   statorResistanceMOhm: number
+  cooling: CoolingType
   caseLengthMm: number
+  statorDiameterMm: number
+  statorHeightMm: number
   poles: number
   weightG: number
 }
 
 export interface PropellerInput {
+  presetId?: string
   propType: string
   yokeTwistDeg: number
   diameter: number
@@ -156,8 +236,11 @@ export interface MulticopterData {
 export interface MotorChartPoint {
   currentA: number
   thrustG: number
-  powerW: number
+  electricPowerW: number
+  mechanicalPowerW: number
   efficiencyPct: number
+  heatW: number
+  temperatureC: number
 }
 
 export interface RangeChartPoint {
@@ -165,6 +248,12 @@ export interface RangeChartPoint {
   speedMph: number
   rangeKm: number
   rangeMiles: number
+}
+
+export interface WattmeterData {
+  currentA: number
+  voltageV: number
+  powerW: number
 }
 
 export interface CalculationWarnings {
@@ -183,10 +272,12 @@ export interface CalculationResult {
   motorHover: OperatingPoint
   totalDrive: TotalDriveData
   multicopter: MulticopterData
+  wattmeter: WattmeterData
   motorChart: MotorChartPoint[]
   rangeChart: RangeChartPoint[]
   hoverSpeedKmh: number
   peakRangeSpeedKmh: number
   status: StatusFlags
   warnings: CalculationWarnings
+  errorMessages: string[]
 }
