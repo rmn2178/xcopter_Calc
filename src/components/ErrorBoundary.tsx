@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { captureError } from '../observability'
 
 interface Props {
   children: ReactNode
@@ -16,6 +17,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
+    captureError(error, { boundary: 'ErrorBoundary' })
     console.error('Unhandled UI error:', error, info)
   }
 

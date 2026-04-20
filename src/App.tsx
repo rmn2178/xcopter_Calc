@@ -30,8 +30,15 @@ interface SavedProfile {
   inputs: InputState
 }
 
+interface ProfilesBackup {
+  createdAt: string
+  profiles: SavedProfile[]
+}
+
 const STORAGE_KEY = 'xcopter_profiles'
+const BACKUP_KEY = 'xcopter_profiles_backup'
 const STATEMENT_KEY = 'xcopter_statement_ok'
+const MAX_BACKUPS = 20
 
 function parseSharedInputFromHash(): InputState | null {
   const rawHash = window.location.hash
@@ -61,6 +68,23 @@ function listProfiles(): SavedProfile[] {
   } catch {
     return []
   }
+}
+
+function listProfileBackups(): ProfilesBackup[] {
+  const raw = localStorage.getItem(BACKUP_KEY)
+  if (!raw) return []
+  try {
+    return JSON.parse(raw) as ProfilesBackup[]
+  } catch {
+    return []
+  }
+}
+
+function backupProfiles(profiles: SavedProfile[]): void {
+  const backups = listProfileBackups()
+  backups.unshift({ createdAt: new Date().toISOString(), profiles })
+  const sliced = backups.slice(0, MAX_BACKUPS)
+  localStorage.setItem(BACKUP_KEY, JSON.stringify(sliced))
 }
 
 function useDebouncedInput(input: InputState, delayMs: number): InputState {
@@ -117,6 +141,7 @@ function App() {
     const idx = all.findIndex((item) => item.name === name)
     if (idx >= 0) all[idx] = profile
     else all.push(profile)
+    backupProfiles(all)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all))
     setProfiles(all)
   }
@@ -149,10 +174,28 @@ function App() {
     const sanitizedInputs = sanitizeInputState(parsed.inputs)
     const all = listProfiles().filter((item) => item.name !== parsed.name)
     all.push({ ...parsed, inputs: sanitizedInputs })
+    backupProfiles(all)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all))
     setProfiles(all)
     setInput(sanitizedInputs)
     setProfileName(parsed.name)
+  }
+
+  const recoverLatestProfiles = () => {
+    const latest = listProfileBackups()[0]
+    if (!latest) return
+    const sanitized = latest.profiles
+      .filter((profile) => profile?.name && isLikelyInputState(profile.inputs))
+      .map((profile) => ({
+        ...profile,
+        inputs: sanitizeInputState(profile.inputs),
+      }))
+
+    if (sanitized.length === 0) return
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitized))
+    setProfiles(sanitized)
+    setProfileName(sanitized[0].name)
+    setInput(sanitized[0].inputs)
   }
 
   return (
@@ -162,7 +205,8 @@ function App() {
           <div className="statement-modal">
             <h3>Statement for using this calculator</h3>
             <p>All values are calculated estimates and may deviate from real measurements.</p>
-            <p>Before flight, recheck actual max values and ensure all limits stay within manufacturer specs.</p>
+            <p>Before flight, bench test and recheck actual max values and ensure all limits stay within manufacturer specs.</p>
+            <p>No warranty: the authors are not liable for damage, injury, or loss caused by using these estimates.</p>
             <p>Do you accept this statement?</p>
             <div className="statement-actions">
               <button onClick={acceptStatement}>Ok</button>
@@ -220,6 +264,7 @@ function App() {
               }}
             />
           </label>
+          <button onClick={recoverLatestProfiles}>Recover latest backup</button>
           <button onClick={() => setInput(defaultInput)}>{t('profiles.reset')}</button>
         </div>
       </section>

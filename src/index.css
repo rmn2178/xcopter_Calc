@@ -1,15 +1,15 @@
 :root {
-  --bg-top: #0a1e2b;
-  --bg-bottom: #102f3a;
-  --panel: #133848;
-  --panel-soft: #1a4a5d;
-  --line: #2f6a7f;
-  --text: #e6f3f8;
-  --muted: #aac6d2;
-  --cyan: #35d4ff;
-  --lime: #9eff8f;
-  --amber: #ffcf5b;
-  --red: #ff6e6e;
+  --bg-top: #fff7f7;
+  --bg-bottom: #ffdede;
+  --panel: #ffffff;
+  --panel-soft: #fff0f0;
+  --line: #dc4b4b;
+  --text: #5e1414;
+  --muted: #874949;
+  --cyan: #bf1f1f;
+  --lime: #2e8d49;
+  --amber: #a56b06;
+  --red: #b10f0f;
   --font-main: 'Trebuchet MS', 'Segoe UI', sans-serif;
   --font-heading: 'Franklin Gothic Medium', 'Arial Narrow', sans-serif;
 }
@@ -24,8 +24,8 @@ body {
   color: var(--text);
   font-family: var(--font-main);
   background:
-    radial-gradient(circle at 90% 10%, rgba(53, 212, 255, 0.22), transparent 30%),
-    radial-gradient(circle at 10% 90%, rgba(158, 255, 143, 0.1), transparent 34%),
+    radial-gradient(circle at 90% 10%, rgba(177, 15, 15, 0.16), transparent 34%),
+    radial-gradient(circle at 8% 88%, rgba(220, 75, 75, 0.14), transparent 38%),
     linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
 }
 
@@ -45,7 +45,7 @@ body {
   width: min(520px, 100%);
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(19, 56, 72, 0.95), rgba(13, 42, 52, 0.95));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 241, 241, 0.96));
   padding: 18px;
   text-align: center;
 }
@@ -73,7 +73,7 @@ body {
   justify-content: space-between;
   align-items: center;
   border: 1px solid var(--line);
-  background: rgba(19, 56, 72, 0.7);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 243, 243, 0.96));
   border-radius: 14px;
   padding: 14px 18px;
 }
@@ -118,7 +118,7 @@ h3 {
 .statement-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 7, 12, 0.76);
+  background: rgba(74, 9, 9, 0.35);
   display: grid;
   place-items: center;
   z-index: 1000;
@@ -129,7 +129,7 @@ h3 {
   width: min(640px, 100%);
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(19, 56, 72, 0.98), rgba(13, 42, 52, 0.98));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(255, 241, 241, 0.97));
   padding: 16px;
 }
 
@@ -189,8 +189,8 @@ h3 {
 .error-banner {
   border: 1px solid #ef4444;
   border-radius: 10px;
-  background: rgba(127, 29, 29, 0.35);
-  color: #fecaca;
+  background: rgba(239, 68, 68, 0.14);
+  color: #7f1d1d;
   padding: 10px 12px;
 }
 
@@ -224,7 +224,7 @@ h3 {
 .warnings-card {
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(19, 56, 72, 0.92), rgba(13, 42, 52, 0.92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 245, 245, 0.96));
   padding: 12px;
 }
 
@@ -290,7 +290,7 @@ select {
   justify-content: space-between;
   gap: 8px;
   font-size: 0.9rem;
-  border-bottom: 1px dashed rgba(170, 198, 210, 0.15);
+  border-bottom: 1px dashed rgba(150, 56, 56, 0.22);
   padding-bottom: 4px;
 }
 

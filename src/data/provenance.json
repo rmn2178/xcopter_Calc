@@ -1,0 +1,1804 @@
+{
+  "motors": {
+    "axi-2217-880": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "axi-2217-1250": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "brotherhobby-avenger-2207-1720": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "brotherhobby-avenger-2207-1960": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "brotherhobby-avenger-2207-2450": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "cobra-cm-2204-1960": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "cobra-cm-2204-2300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-2312e-800": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-2312e-960": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-2315-800": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-2315-900": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dualsky-xm4108-380": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dualsky-xm4108-480": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "emax-eco-ii-2207-1700": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "emax-eco-ii-2207-1900": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "emax-eco-ii-2207-2400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "emax-rs2205-2300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "emax-rs2205-2600": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gartt-ml-5010-300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gartt-ml-5010-360": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hacker-a30-900": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hacker-a30-1100": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-2207-1750": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-2207-1950": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-2207-2550": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-4112-320": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-4112-340": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-4112-420": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "iflight-xing2-2306-1755": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "iflight-xing2-2306-1995": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "iflight-xing2-2306-2555": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kde-direct-2315xf-715": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kde-direct-2315xf-885": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kde-direct-2315xf-1050": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kde-direct-5215xf-220": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kde-direct-5215xf-330": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "lumenier-zip-2207-1750": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "lumenier-zip-2207-2025": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "lumenier-zip-2207-2550": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "neu-1107-1700": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "neu-1107-2200": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "pyrodrone-hyperlite-2207-5-1722": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "pyrodrone-hyperlite-2207-5-1922": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "pyrodrone-hyperlite-2207-5-2522": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "racerstar-br2207-1900": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "racerstar-br2207-2300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "racerstar-br2207-2500": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "readytosky-2306-1700": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "readytosky-2306-2400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "roxxy-c35-910": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "roxxy-c35-1100": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "scorpion-hkiii-4025-440": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "scorpion-hkiii-4025-550": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-880-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-880-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-980-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-880": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-980-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1100-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-880-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-980": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1100-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1250-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-880-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-980-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1100": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1250-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1400-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-980-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1100-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1250": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1400-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1100-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1250-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1250-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1400-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x2216-1400-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-340-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-340-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-380-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-340": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-380-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-340-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-380": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-480-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-340-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-380-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-480-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-380-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-480": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-480-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4108s-480-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-320-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-340-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-320-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-340-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-320": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-400-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-340": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-320-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-400-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-340-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-320-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-340-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-400-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sunnysky-x4112s-400-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1750-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1750-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1950-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1750": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1950-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2200-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1750-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1950": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2200-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1750-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2550-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1950-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2200": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-1950-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2200-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2550": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-f60-2200-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1400-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1400-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1700-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1400-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1700-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1900-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1400-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1700": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1900-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-2100-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1700-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-2100-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1900": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1700-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1900-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-2100": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-1900-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-2100-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn2206-2100-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-380-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-380-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-380": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-380-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-380-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-580-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-580-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-700-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-580": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-580-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-700-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-580-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-700": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-700-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn3508-700-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-320-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-320-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-370-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-320": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-370-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-320-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-370": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-320-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-475-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-370-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-475-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-370-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-475": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-475-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn4010-475-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-240-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-240-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-280-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-240": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-280-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-240-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-280": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-240-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-360-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-280-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-360-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-280-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-360": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-360-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-mn5010-360-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-300-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-300-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-300-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-400-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-300-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-400-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-400": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-520-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-400-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-400-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-520-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-520": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-520-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u5-520-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-280-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-280-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-280": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-280-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-280-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-420-lp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-420-mid": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-420": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-420-hp": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "t-motor-u7-420-race": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "turnigy-aerodrive-sk3-2820-850": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "turnigy-aerodrive-sk3-2820-1200": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "xing-2207-1800": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "xing-2207-2450": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "xing-2207-2750": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    }
+  },
+  "escs": {
+    "apd-f80f3": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "apd-hv-pro-120a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "blheli-30a-s": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "castle-talon-90": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "custom-manual-entry": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-120a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-120a-hv-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-120a-hv-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-120a-hv-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-120a-hv-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-30a-v4": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-30a-v4-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-30a-v4-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-30a-v4-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-30a-v4-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-80a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-80a-hv-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-80a-hv-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-80a-hv-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-platinum-80a-hv-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-x6-plus-40a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-x9-plus-80a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-40a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-40a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-40a-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-40a-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-40a-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-60a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-60a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-60a-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-60a-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-60a-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-micro-45a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-micro-45a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-micro-45a-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-micro-45a-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hobbywing-xrotor-micro-45a-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "kiss-32a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-alpha-120a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-alpha-60a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-f55a-pro2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-f80a-pro2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-40a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-40a-hv": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-40a-lite": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-40a-pro": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-40a-v2": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-flame-60a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    }
+  },
+  "batteries": {
+    "tattu-rline-1300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tattu-rline-1550": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tattu-plus-16000": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tattu-plus-22000": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gensace-gtech-5000": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gensace-6000": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "cnhl-black-1300": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "cnhl-gplus-6500": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "lumenier-lihv-1500": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "turnigy-nano-5000": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "panasonic-ncr18650b": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "samsung-30q": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "sony-vtc6": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "molicel-p42a": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "eneloop-aa": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    }
+  },
+  "propellers": {
+    "apc-10x4.7-sf": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "apc-12x3.8-mr": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "apc-15x4.0": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "apc-18x5.5": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-9450": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dji-1345-tri": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-15x5-cf": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-18x6.1-cf": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "tmotor-22x7.2-cf": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gemfan-5045-tri": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "gemfan-6042-bi": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hqprop-5x4x3": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "hqprop-7x4x3": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "masterairscrew-10x5x3": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "dalprop-5046c": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    },
+    "custom-manual-entry": {
+      "status": "pending",
+      "sourceName": "",
+      "sourceUrl": "",
+      "verifiedAt": ""
+    }
+  }
+}

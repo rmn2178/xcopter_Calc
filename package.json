@@ -3,33 +3,45 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc -b",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "test": "vitest",
+    "test:ci": "vitest run --reporter=verbose",
+    "audit:deps": "npm audit --audit-level=moderate",
+    "verify:provenance": "node scripts/verify-provenance.mjs",
     "check": "npm run lint && npm run build",
+    "check:full": "npm run lint && npm run test:ci && npm run build && npm run verify:provenance && npm run audit:deps",
     "preview": "vite preview"
   },
   "dependencies": {
-    "i18next": "^26.0.6",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-i18next": "^17.0.4",
-    "recharts": "^3.8.1"
+    "@sentry/react": "10.49.0",
+    "i18next": "26.0.6",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "react-i18next": "17.0.4",
+    "recharts": "3.8.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@types/node": "^24.12.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.5.0",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.58.2",
-    "vite": "^8.0.9"
+    "@eslint/js": "9.39.4",
+    "@types/node": "24.12.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.1",
+    "eslint": "9.39.4",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.2",
+    "globals": "17.5.0",
+    "typescript": "6.0.2",
+    "typescript-eslint": "8.58.2",
+    "vite": "8.0.9",
+    "vitest": "4.1.4"
   }
 }
