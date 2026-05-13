@@ -16,6 +16,10 @@ export const defaultInput: InputState = {
     airTempUnit: 'c',
     pressure: 1013.25,
     pressureUnit: 'hPa',
+    relativeHumidity: 40,
+    cruiseSpeedKmh: 45,
+    payloadWeightG: 0,
+    payloadWeightUnit: 'g',
   },
   battery: {
     presetId: 'gensace-gtech-5000',
@@ -29,6 +33,7 @@ export const defaultInput: InputState = {
     nominalVoltage: 3.7,
     fullChargeVoltage: 4.2,
     cellWeightG: 100,
+    ageCycles: 0,
   },
   esc: {
     presetId: 'hobbywing-xrotor-40a',
@@ -39,6 +44,7 @@ export const defaultInput: InputState = {
     voltageMax: 35,
     protocol: 'DSHOT300',
     weightG: 30,
+    brake: false,
   },
   accessories: {
     currentDrainA: 1.5,
@@ -59,6 +65,7 @@ export const defaultInput: InputState = {
     statorHeightMm: 16,
     poles: 14,
     weightG: 110,
+    timingDeg: 15,
   },
   propeller: {
     presetId: 'apc-10x4.7-sf',

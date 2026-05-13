@@ -151,6 +151,12 @@ export function MotorSection({ value, onChange, expertMode }: Props) {
         </InputRow>
       )}
 
+      {expertMode && (
+        <InputRow label="Timing (deg)">
+          <NumberInput value={value.timingDeg} min={0} max={30} step={1} onChange={(v) => onChange({ timingDeg: v })} />
+        </InputRow>
+      )}
+
       <InputRow label="Motor Weight (g)">
         <NumberInput value={value.weightG} step={0.1} onChange={(v) => onChange({ weightG: v })} />
       </InputRow>

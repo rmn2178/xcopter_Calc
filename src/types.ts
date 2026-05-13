@@ -96,6 +96,10 @@ export interface GeneralInput {
   airTempUnit: TemperatureUnit
   pressure: number
   pressureUnit: PressureUnit
+  relativeHumidity: number
+  cruiseSpeedKmh: number
+  payloadWeightG: number
+  payloadWeightUnit: WeightUnit
 }
 
 export interface BatteryInput {
@@ -110,6 +114,7 @@ export interface BatteryInput {
   nominalVoltage: number
   fullChargeVoltage: number
   cellWeightG: number
+  ageCycles: number
 }
 
 export interface EscInput {
@@ -121,6 +126,7 @@ export interface EscInput {
   voltageMax: number
   protocol: 'PWM' | 'DSHOT300' | 'DSHOT600' | 'BLHeli32'
   weightG: number
+  brake: boolean
 }
 
 export interface AccessoriesInput {
@@ -143,6 +149,7 @@ export interface MotorInput {
   statorHeightMm: number
   poles: number
   weightG: number
+  timingDeg: number
 }
 
 export interface PropellerInput {
@@ -205,6 +212,7 @@ export interface BatteryCardData {
   mixedFlightMin: number
   hoverFlightMin: number
   weightG: number
+  batterySagPct: number
 }
 
 export interface TotalDriveData {
@@ -218,18 +226,26 @@ export interface TotalDriveData {
   pinMaxW: number
   poutMaxW: number
   efficiencyMaxPct: number
+  escTempC: number
 }
 
 export interface MulticopterData {
   allUpWeightG: number
+  payloadWeightG: number
   addPayloadG: number
   maxTiltDeg: number
   maxSpeedKmh: number
   estimatedRangeKm: number
+  cruiseRangeKm: number
+  cruiseSpeedKmh: number
   maxClimbMs: number
   maxClimbFtMin: number
   totalDiscAreaDm2: number
   totalDiscAreaIn2: number
+  diskLoadingGPerDm2: number
+  hoverDiscLoading: number
+  maxDiscLoading: number
+  powerLoadingWPerG: number
   engineFailureStatus: string
 }
 
@@ -254,6 +270,8 @@ export interface WattmeterData {
   currentA: number
   voltageV: number
   powerW: number
+  batterySagPct: number
+  escTempC: number
 }
 
 export interface CalculationWarnings {
@@ -262,6 +280,9 @@ export interface CalculationWarnings {
   batteryOverloaded: boolean
   hoverOverCurrent: boolean
   voltageLimited: boolean
+  motorHighTemp: boolean
+  escHighTemp: boolean
+  batterySagHigh: boolean
 }
 
 export interface CalculationResult {

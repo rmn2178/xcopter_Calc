@@ -102,6 +102,13 @@ export function GeneralSection({ value, onChange, expertMode }: Props) {
       )}
 
       {expertMode && (
+        <InputRow label="Relative Humidity (%)">
+          <NumberInput value={value.relativeHumidity} step={1} onChange={(v) => onChange({ relativeHumidity: v })} />
+          <span>%</span>
+        </InputRow>
+      )}
+
+      {expertMode && (
         <InputRow label="Pressure (QNH)">
           <NumberInput value={value.pressure} step={0.01} onChange={(v) => onChange({ pressure: v })} />
           <select
@@ -111,6 +118,12 @@ export function GeneralSection({ value, onChange, expertMode }: Props) {
             <option value="hPa">hPa</option>
             <option value="inHg">inHg</option>
           </select>
+        </InputRow>
+      )}
+
+      {expertMode && (
+        <InputRow label="Cruise Speed (km/h)">
+          <NumberInput value={value.cruiseSpeedKmh} step={0.1} onChange={(v) => onChange({ cruiseSpeedKmh: v })} />
         </InputRow>
       )}
     </section>

@@ -7,6 +7,7 @@ export interface SpeedPerfInput {
   pHoverTotalW: number
   pAccessoriesW: number
   energyWh: number
+  cruiseSpeedKmh: number
 }
 
 export interface RangePoint {
@@ -29,20 +30,22 @@ export function climbRateMps(totalThrustN: number, allUpWeightN: number, massKg:
   return excess / Math.max(massKg, 1e-6)
 }
 
-export function buildRangeCurve(input: SpeedPerfInput, maxSpeedKmh: number): RangePoint[] {
+function totalDragPowerW(input: SpeedPerfInput, v: number): number {
   const cd = 0.8
   const frontalArea = estimateFrontalArea(input.frameSizeMm)
-  const points: RangePoint[] = []
+  const pInd = Math.pow(input.allUpWeightN, 2) / (2 * input.rho * v * input.totalDiscAreaM2 + 1e-6)
+  const pPar = 0.5 * input.rho * Math.pow(v, 3) * cd * frontalArea
+  const pPro = input.pHoverTotalW * 0.05
+  return pInd + pPar + pPro + input.pAccessoriesW
+}
 
+export function buildRangeCurve(input: SpeedPerfInput, maxSpeedKmh: number): RangePoint[] {
+  const points: RangePoint[] = []
   const capSpeed = Math.max(10, Math.floor(maxSpeedKmh))
+
   for (let speedKmh = 1; speedKmh <= capSpeed; speedKmh += 1) {
     const v = speedKmh / 3.6
-    const pInd =
-      Math.pow(input.allUpWeightN, 2) /
-      (2 * input.rho * v * input.totalDiscAreaM2 + 1e-6)
-    const pPar = 0.5 * input.rho * Math.pow(v, 3) * cd * frontalArea
-    const pPro = input.pHoverTotalW * 0.05
-    const pTot = pInd + pPar + pPro + input.pAccessoriesW
+    const pTot = totalDragPowerW(input, v)
     const rangeM = ((input.energyWh * 3600) / Math.max(pTot, 1e-6)) * v
 
     points.push({
@@ -52,4 +55,11 @@ export function buildRangeCurve(input: SpeedPerfInput, maxSpeedKmh: number): Ran
   }
 
   return points
+}
+
+export function rangeAtCruiseSpeed(input: SpeedPerfInput): number {
+  const v = Math.max(1, input.cruiseSpeedKmh / 3.6)
+  const pTot = totalDragPowerW(input, v)
+  const rangeM = ((input.energyWh * 3600) / Math.max(pTot, 1e-6)) * v
+  return rangeM / 1000
 }

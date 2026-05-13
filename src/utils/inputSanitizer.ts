@@ -20,6 +20,21 @@ export function sanitizeInputState(input: InputState): InputState {
   safe.general.elevation = clamp(toFiniteNumber(safe.general.elevation, defaultInput.general.elevation), -500, 10000)
   safe.general.airTemp = clamp(toFiniteNumber(safe.general.airTemp, defaultInput.general.airTemp), -60, 80)
   safe.general.pressure = clamp(toFiniteNumber(safe.general.pressure, defaultInput.general.pressure), 800, 1100)
+  safe.general.relativeHumidity = clamp(
+    toFiniteNumber(safe.general.relativeHumidity, defaultInput.general.relativeHumidity),
+    0,
+    100,
+  )
+  safe.general.cruiseSpeedKmh = clamp(
+    toFiniteNumber(safe.general.cruiseSpeedKmh, defaultInput.general.cruiseSpeedKmh),
+    0,
+    300,
+  )
+  safe.general.payloadWeightG = clamp(
+    toFiniteNumber(safe.general.payloadWeightG, defaultInput.general.payloadWeightG),
+    0,
+    100000,
+  )
 
   safe.battery.seriesCells = Math.round(clamp(toFiniteNumber(safe.battery.seriesCells, defaultInput.battery.seriesCells), 1, 20))
   safe.battery.parallelCells = Math.round(clamp(toFiniteNumber(safe.battery.parallelCells, defaultInput.battery.parallelCells), 1, 20))
@@ -29,12 +44,14 @@ export function sanitizeInputState(input: InputState): InputState {
   safe.battery.nominalVoltage = clamp(toFiniteNumber(safe.battery.nominalVoltage, defaultInput.battery.nominalVoltage), 0.5, 5)
   safe.battery.fullChargeVoltage = clamp(toFiniteNumber(safe.battery.fullChargeVoltage, defaultInput.battery.fullChargeVoltage), 0.5, 5)
   safe.battery.cellWeightG = clamp(toFiniteNumber(safe.battery.cellWeightG, defaultInput.battery.cellWeightG), 1, 5000)
+  safe.battery.ageCycles = Math.round(clamp(toFiniteNumber(safe.battery.ageCycles, defaultInput.battery.ageCycles), 0, 5000))
 
   safe.esc.continuousCurrentA = clamp(toFiniteNumber(safe.esc.continuousCurrentA, defaultInput.esc.continuousCurrentA), 0.1, 500)
   safe.esc.burstCurrentA = clamp(toFiniteNumber(safe.esc.burstCurrentA, defaultInput.esc.burstCurrentA), safe.esc.continuousCurrentA, 800)
   safe.esc.internalResistanceMOhm = clamp(toFiniteNumber(safe.esc.internalResistanceMOhm, defaultInput.esc.internalResistanceMOhm), 0, 200)
   safe.esc.voltageMax = clamp(toFiniteNumber(safe.esc.voltageMax, defaultInput.esc.voltageMax), 1, 100)
   safe.esc.weightG = clamp(toFiniteNumber(safe.esc.weightG, defaultInput.esc.weightG), 0.1, 1000)
+  if (typeof safe.esc.brake !== 'boolean') safe.esc.brake = defaultInput.esc.brake
 
   safe.accessories.currentDrainA = clamp(toFiniteNumber(safe.accessories.currentDrainA, defaultInput.accessories.currentDrainA), 0, 100)
   safe.accessories.weightG = clamp(toFiniteNumber(safe.accessories.weightG, defaultInput.accessories.weightG), 0, 10000)
@@ -50,6 +67,7 @@ export function sanitizeInputState(input: InputState): InputState {
   safe.motor.statorHeightMm = clamp(toFiniteNumber(safe.motor.statorHeightMm, defaultInput.motor.statorHeightMm), 1, 500)
   safe.motor.poles = Math.round(clamp(toFiniteNumber(safe.motor.poles, defaultInput.motor.poles), 2, 64))
   safe.motor.weightG = clamp(toFiniteNumber(safe.motor.weightG, defaultInput.motor.weightG), 1, 5000)
+  safe.motor.timingDeg = clamp(toFiniteNumber(safe.motor.timingDeg, defaultInput.motor.timingDeg), 0, 30)
 
   safe.propeller.yokeTwistDeg = clamp(toFiniteNumber(safe.propeller.yokeTwistDeg, defaultInput.propeller.yokeTwistDeg), -30, 30)
   safe.propeller.diameter = clamp(toFiniteNumber(safe.propeller.diameter, defaultInput.propeller.diameter), 1, 80)
@@ -66,5 +84,18 @@ export function sanitizeInputState(input: InputState): InputState {
 export function isLikelyInputState(value: unknown): value is InputState {
   if (!value || typeof value !== 'object') return false
   const v = value as Record<string, unknown>
-  return Boolean(v.general && v.battery && v.esc && v.accessories && v.motor && v.propeller)
+  return Boolean(
+    v.general &&
+      typeof (v.general as Record<string, unknown>).relativeHumidity === 'number' &&
+      typeof (v.general as Record<string, unknown>).cruiseSpeedKmh === 'number' &&
+      typeof (v.general as Record<string, unknown>).payloadWeightG === 'number' &&
+      v.battery &&
+      typeof (v.battery as Record<string, unknown>).ageCycles === 'number' &&
+      v.esc &&
+      typeof (v.esc as Record<string, unknown>).brake === 'boolean' &&
+      v.accessories &&
+      v.motor &&
+      typeof (v.motor as Record<string, unknown>).timingDeg === 'number' &&
+      v.propeller,
+  )
 }

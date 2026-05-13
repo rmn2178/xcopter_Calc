@@ -1,3 +1,5 @@
+import motorEfficiencyTables from '../data/motorEfficiencyTables.json'
+
 export interface MotorConfig {
   kv: number
   i0: number
@@ -5,6 +7,7 @@ export interface MotorConfig {
   rEscOhm: number
   poles: number
   gearRatio: number
+  presetId?: string
 }
 
 export interface MotorPoint {
@@ -18,6 +21,44 @@ export interface MotorPoint {
 
 export function kvEffective(kv: number, gearRatio: number): number {
   return kv / Math.max(gearRatio, 1e-6)
+}
+
+function torqueConstantNmPerA(kv: number): number {
+  return 60 / (2 * Math.PI * Math.max(kv, 1e-6))
+}
+
+function interpolateEfficiency(table: Array<{ torqueNm: number; efficiency: number }>, torque: number): number {
+  if (table.length === 0) return 0
+  const sorted = [...table].sort((a, b) => a.torqueNm - b.torqueNm)
+  if (torque <= sorted[0].torqueNm) return sorted[0].efficiency
+  if (torque >= sorted[sorted.length - 1].torqueNm) return sorted[sorted.length - 1].efficiency
+
+  for (let i = 1; i < sorted.length; i += 1) {
+    const prev = sorted[i - 1]
+    const next = sorted[i]
+    if (torque <= next.torqueNm) {
+      const f = (torque - prev.torqueNm) / Math.max(next.torqueNm - prev.torqueNm, 1e-6)
+      return prev.efficiency + (next.efficiency - prev.efficiency) * f
+    }
+  }
+
+  return sorted[sorted.length - 1].efficiency
+}
+
+function lookupMotorEfficiency(currentA: number, rpm: number, motor: MotorConfig): { efficiency: number; source: 'table' | 'fallback' } {
+  const table = motor.presetId ? (motorEfficiencyTables as Record<string, Array<{ torqueNm: number; efficiency: number }>>)[motor.presetId] : undefined
+  const kt = torqueConstantNmPerA(motor.kv)
+  const torque = Math.max(0, currentA - motor.i0) * kt
+
+  if (table && table.length > 0) {
+    return { efficiency: interpolateEfficiency(table, torque), source: 'table' }
+  }
+
+  const vin = currentA * (motor.rmOhm + motor.rEscOhm)
+  const vBack = rpm / Math.max(kvEffective(motor.kv, motor.gearRatio), 1e-6)
+  const e = Math.max(0, vBack) * Math.max(currentA - motor.i0, 0)
+  const p = Math.max(vin + vBack, 1e-6) * currentA
+  return { efficiency: p > 0 ? e / p : 0, source: 'fallback' }
 }
 
 export function currentForRpmWithSag(
@@ -70,8 +111,8 @@ export function motorPointFromCurrent(
   const kvEff = kvEffective(motor.kv, motor.gearRatio)
   const rpm = Math.max(0, backEmf * kvEff)
   const electricPowerW = vPack * currentA
-  const mechanicalPowerW = backEmf * Math.max(0, currentA - motor.i0)
-  const efficiency = electricPowerW > 0 ? mechanicalPowerW / electricPowerW : 0
+  const { efficiency } = lookupMotorEfficiency(currentA, rpm, motor)
+  const mechanicalPowerW = electricPowerW * efficiency
 
   return {
     currentA,

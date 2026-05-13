@@ -84,6 +84,19 @@ export function ControllerSection({ value, onChange, expertMode }: Props) {
       )}
 
       {expertMode && (
+        <InputRow label="Brake Enabled">
+          <label className="inline-check">
+            <input
+              type="checkbox"
+              checked={value.brake}
+              onChange={(e) => onChange({ brake: e.target.checked })}
+            />
+            enable brake
+          </label>
+        </InputRow>
+      )}
+
+      {expertMode && (
         <InputRow label="Protocol">
           <select value={value.protocol} onChange={(e) => onChange({ protocol: e.target.value as EscInput['protocol'] })}>
             <option value="PWM">PWM</option>

@@ -18,6 +18,21 @@ export interface BatteryState {
   weightG: number
 }
 
+function voltageAtSoc(cellType: CellType, soc: number, ageCycles: number, nominal: number, full: number): number {
+  const baseLow = typeBasedLow(cellType, nominal)
+  const curve = baseLow + (full - baseLow) * Math.sqrt(Math.max(0, soc))
+  const cycleLoss = Math.min(0.15, ageCycles / 1000)
+  return curve - cycleLoss * (full - baseLow)
+}
+
+function typeBasedLow(type: CellType, nominal: number): number {
+  if (type === 'LiPo') return 3.7
+  if (type === 'LiHV') return 3.75
+  if (type === 'Li-Ion') return 3.3
+  if (type === 'NiMH') return 1.1
+  return nominal * 0.95
+}
+
 export function cellVoltageForState(
   type: CellType,
   chargeState: ChargeState,
@@ -44,6 +59,8 @@ export function buildBatteryState(battery: BatteryInput): BatteryState {
     battery.nominalVoltage,
   )
   const vOc = cellV * battery.seriesCells
+  const idlingLoss = Math.min(0.12, battery.ageCycles * 0.00004)
+  const degradedVoc = vOc * (1 - idlingLoss)
   const ratedV = battery.nominalVoltage * battery.seriesCells
   const capacityTotalMah = battery.cellCapacityMah * battery.parallelCells
   const capacityAh = capacityTotalMah / 1000
@@ -54,7 +71,7 @@ export function buildBatteryState(battery: BatteryInput): BatteryState {
     capacityTotalMah,
     capacityAh,
     rPackOhm,
-    vOc,
+    vOc: degradedVoc,
     ratedV,
     maxCurrentA: battery.maxDischargeC * capacityAh,
     weightG: battery.seriesCells * battery.parallelCells * battery.cellWeightG,

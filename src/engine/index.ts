@@ -17,28 +17,41 @@ import { mpsToFpm, toCelsius, toGrams, toHpa, toInch, toMeters } from '../utils/
 import { computeAirDensity } from './atmosphere'
 import { buildBatteryState, cellVoltageForState, DEFAULT_BY_TYPE, packVoltage } from './battery'
 import { findCurrentFromPowerLimit, motorPointFromCurrent } from './motor'
-import { buildRangeCurve, climbRateMps, estimateFrontalArea, maxSpeedMps } from './performance'
+import { buildRangeCurve, climbRateMps, estimateFrontalArea, maxSpeedMps, rangeAtCruiseSpeed } from './performance'
 import { derivePropConstants, propDiscArea, thrustFromRpmGrams } from './propeller'
 import { solveHoverPoint } from './solver'
 
-function thermalCoefficient(cooling: 'open' | 'closed', statorDiameterMm: number, statorHeightMm: number): number {
+function thermalCoefficient(
+  cooling: 'open' | 'closed',
+  statorDiameterMm: number,
+  statorHeightMm: number,
+  motorWeightG: number,
+): number {
   const d = Math.max(statorDiameterMm, 1)
   const h = Math.max(statorHeightMm, 1)
   const sideAreaMm2 = Math.PI * d * h
   const endAreaMm2 = 2 * Math.PI * Math.pow(d / 2, 2)
   const exposedAreaCm2 = (sideAreaMm2 + endAreaMm2) / 100
+  const massFactor = Math.pow(Math.max(motorWeightG, 10), -0.2)
 
   // Approximate steady-state thermal resistance for small outrunner motors.
   const baseThetaCPerW = 35 / Math.max(exposedAreaCm2, 5)
   const coolingFactor = cooling === 'closed' ? 1.35 : 1
-  const theta = baseThetaCPerW * coolingFactor
+  const theta = baseThetaCPerW * coolingFactor * (1 + 0.35 * massFactor)
 
-  return Math.min(Math.max(theta, 0.8), 4.5)
+  return Math.min(Math.max(theta, 0.6), 4.5)
 }
 
 function estimatedMotorTempC(ambientC: number, currentA: number, rmOhm: number, thetaCPerW: number): number {
   const copperLossW = Math.pow(Math.max(currentA, 0), 2) * Math.max(rmOhm, 0)
   return ambientC + thetaCPerW * copperLossW
+}
+
+function estimatedEscTempC(ambientC: number, currentA: number, rEscOhm: number, escWeightG: number, brake: boolean): number {
+  const lossW = Math.pow(Math.max(currentA, 0), 2) * Math.max(rEscOhm, 0)
+  const thermalResistance = Math.max(0.12, 1.6 / Math.pow(Math.max(escWeightG, 20), 0.45))
+  const brakePenalty = brake ? 1.1 : 1
+  return ambientC + lossW * thermalResistance * brakePenalty
 }
 
 function clamp(v: number, low: number, high: number): number {
@@ -81,6 +94,7 @@ function toOperatingPoint(
 
 export function runCalculator(input: InputState): CalculationResult {
   const modelWeightG = toGrams(input.general.modelWeight, input.general.modelWeightUnit)
+  const payloadWeightG = toGrams(input.general.payloadWeightG, input.general.payloadWeightUnit)
   const elevationM = toMeters(input.general.elevation, input.general.elevationUnit)
   const tempC = toCelsius(input.general.airTemp, input.general.airTempUnit)
   const qnhHpa = toHpa(input.general.pressure, input.general.pressureUnit)
@@ -114,6 +128,7 @@ export function runCalculator(input: InputState): CalculationResult {
     qnhHpa,
     temperatureC: tempC,
     elevationM,
+    relativeHumidity: input.general.relativeHumidity,
   })
 
   const battery = buildBatteryState(normalizedBattery)
@@ -133,6 +148,7 @@ export function runCalculator(input: InputState): CalculationResult {
     input.accessories.weightG
 
   const batteryWeightG = battery.weightG
+  const totalPayloadG = payloadWeightG
 
   let allUpWeightG = modelWeightG
   if (input.general.weightMode === 'withoutDrive') {
@@ -141,6 +157,7 @@ export function runCalculator(input: InputState): CalculationResult {
   if (input.general.weightMode === 'lessBattery') {
     allUpWeightG = modelWeightG + batteryWeightG
   }
+  allUpWeightG += totalPayloadG
 
   const hoverThrustPerMotorG = allUpWeightG / input.general.rotors
 
@@ -191,6 +208,7 @@ export function runCalculator(input: InputState): CalculationResult {
       rEscOhm,
       poles: input.motor.poles,
       gearRatio: input.propeller.gearRatio,
+      presetId: input.motor.presetId,
     },
   )
 
@@ -216,6 +234,7 @@ export function runCalculator(input: InputState): CalculationResult {
       rEscOhm,
       poles: input.motor.poles,
       gearRatio: input.propeller.gearRatio,
+      presetId: input.motor.presetId,
     },
   )
 
@@ -251,6 +270,7 @@ export function runCalculator(input: InputState): CalculationResult {
       rEscOhm,
       poles: input.motor.poles,
       gearRatio: input.propeller.gearRatio,
+      presetId: input.motor.presetId,
     },
   )
 
@@ -267,6 +287,7 @@ export function runCalculator(input: InputState): CalculationResult {
     input.motor.cooling,
     input.motor.statorDiameterMm,
     input.motor.statorHeightMm,
+    input.motor.weightG,
   )
   const tMotorHover = estimatedMotorTempC(tempC, hoverPointRaw.currentA, rmOhm, kThermal)
   const tMotorMax = estimatedMotorTempC(tempC, maxPointRaw.currentA, rmOhm, kThermal)
@@ -304,6 +325,8 @@ export function runCalculator(input: InputState): CalculationResult {
 
   const vPackHover = packVoltage(battery.vOc, iHoverTotal, battery.rPackOhm)
   const vPackMax = packVoltage(battery.vOc, iMaxTotal, battery.rPackOhm)
+  const batterySagPct = battery.vOc > 0 ? ((battery.vOc - vPackHover) / battery.vOc) * 100 : 0
+  const escTempC = estimatedEscTempC(tempC, iMaxTotal, rEscOhm, input.esc.weightG, input.esc.brake)
 
   const usableMah = battery.capacityTotalMah * 0.8
   const tHoverRaw = (usableMah / Math.max(iHoverTotal * 1000, 1e-6)) * 60
@@ -314,6 +337,9 @@ export function runCalculator(input: InputState): CalculationResult {
 
   const tTotalMaxG = input.general.rotors * motorMax.thrustG
   const twr = tTotalMaxG / Math.max(allUpWeightG, 1e-6)
+  const hoverDiscLoading = allUpWeightG / Math.max(totalDiscAreaM2 * 100, 1e-6)
+  const maxDiscLoading = tTotalMaxG / Math.max(totalDiscAreaM2 * 100, 1e-6)
+  const powerLoadingWPerG = (vPackMax * iMaxTotal) / Math.max(allUpWeightG, 1e-6)
 
   const allUpWeightN = (allUpWeightG / 1000) * 9.81
   const tTotalMaxN = (tTotalMaxG / 1000) * 9.81
@@ -341,6 +367,7 @@ export function runCalculator(input: InputState): CalculationResult {
       pHoverTotalW: iHoverTotal * vPackHover,
       pAccessoriesW: input.accessories.currentDrainA * vPackHover,
       energyWh,
+      cruiseSpeedKmh: input.general.cruiseSpeedKmh,
     },
     vMaxKmh,
   )
@@ -349,6 +376,17 @@ export function runCalculator(input: InputState): CalculationResult {
     (best, point) => (point.rangeKm > best.rangeKm ? point : best),
     { speedKmh: 0, rangeKm: 0 },
   )
+  const cruiseRangeKm = input.general.cruiseSpeedKmh > 0 ? rangeAtCruiseSpeed({
+    rho: atmosphere.rho,
+    allUpWeightN,
+    frameSizeMm: input.general.frameSizeMm,
+    totalDiscAreaM2,
+    horizontalForceN,
+    pHoverTotalW: iHoverTotal * vPackHover,
+    pAccessoriesW: input.accessories.currentDrainA * vPackHover,
+    energyWh,
+    cruiseSpeedKmh: input.general.cruiseSpeedKmh,
+  }) : peakRangePoint.rangeKm
 
   const motorChart: MotorChartPoint[] = []
   const startI = input.motor.noLoadCurrentA
@@ -369,6 +407,7 @@ export function runCalculator(input: InputState): CalculationResult {
         rEscOhm,
         poles: input.motor.poles,
         gearRatio: input.propeller.gearRatio,
+        presetId: input.motor.presetId,
       },
     )
 
@@ -435,6 +474,7 @@ export function runCalculator(input: InputState): CalculationResult {
       mixedFlightMin: tMixed,
       hoverFlightMin: tHover,
       weightG: batteryWeightG,
+      batterySagPct,
     },
     motorOptimum,
     motorMax,
@@ -459,20 +499,29 @@ export function runCalculator(input: InputState): CalculationResult {
     },
     multicopter: {
       allUpWeightG,
+      payloadWeightG: totalPayloadG,
       addPayloadG: Math.max(0, tTotalMaxG - allUpWeightG),
       maxTiltDeg: thetaMax,
       maxSpeedKmh: vMaxKmh,
-      estimatedRangeKm: peakRangePoint.rangeKm,
+      estimatedRangeKm: cruiseRangeKm,
+      cruiseRangeKm,
+      cruiseSpeedKmh: input.general.cruiseSpeedKmh,
       maxClimbMs: climbMps,
       maxClimbFtMin: mpsToFpm(climbMps),
       totalDiscAreaDm2: totalDiscAreaM2 * 100,
       totalDiscAreaIn2: totalDiscAreaM2 * 1550.0031,
+      diskLoadingGPerDm2: allUpWeightG / Math.max(totalDiscAreaM2 * 100, 1e-6),
+      hoverDiscLoading,
+      maxDiscLoading,
+      powerLoadingWPerG,
       engineFailureStatus,
     },
     wattmeter: {
       currentA: iHoverTotal,
       voltageV: vPackHover,
       powerW: vPackHover * iHoverTotal,
+      batterySagPct,
+      escTempC,
     },
     motorChart,
     rangeChart,

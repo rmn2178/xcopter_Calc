@@ -5,6 +5,7 @@ import { BatterySection } from './components/inputs/BatterySection'
 import { ControllerSection } from './components/inputs/ControllerSection'
 import { GeneralSection } from './components/inputs/GeneralSection'
 import { MotorSection } from './components/inputs/MotorSection'
+import { PayloadSection } from './components/inputs/PayloadSection'
 import { PropellerSection } from './components/inputs/PropellerSection'
 import { BatteryCard } from './components/outputs/BatteryCard'
 import { MotorCard } from './components/outputs/MotorCard'
@@ -16,7 +17,7 @@ import { WarningsCard } from './components/outputs/WarningsCard'
 import { defaultInput } from './defaults'
 import { runCalculator } from './engine'
 import { statusClass } from './utils/colors'
-import type { InputState, SpeedUnit } from './types'
+import type { InputState, SpeedUnit, UnitPrefs } from './types'
 import { isLikelyInputState, sanitizeInputState } from './utils/inputSanitizer'
 
 const RangeEstimatorChart = lazy(() => import('./components/charts/RangeEstimatorChart').then((m) => ({ default: m.RangeEstimatorChart })))
@@ -40,7 +41,22 @@ const BACKUP_KEY = 'xcopter_profiles_backup'
 const STATEMENT_KEY = 'xcopter_statement_ok'
 const MAX_BACKUPS = 20
 
-function parseSharedInputFromHash(): InputState | null {
+interface SharePayload {
+  input: InputState
+  prefs: UnitPrefs
+}
+
+const defaultUnitPrefs: UnitPrefs = {
+  weight: 'g',
+  length: 'mm',
+  temperature: 'C',
+  speed: 'km/h',
+  pressure: 'hPa',
+  altitude: 'm',
+  distance: 'km',
+}
+
+function parseSharedInputFromHash(): { input: InputState; prefs: UnitPrefs } | null {
   const rawHash = window.location.hash
   if (!rawHash.startsWith('#cfg=')) return null
 
@@ -48,15 +64,19 @@ function parseSharedInputFromHash(): InputState | null {
     const encoded = rawHash.slice(5)
     const json = decodeURIComponent(window.atob(encoded))
     const parsed: unknown = JSON.parse(json)
-    if (!isLikelyInputState(parsed)) return null
-    return sanitizeInputState(parsed)
+    if (!parsed || typeof parsed !== 'object') return null
+    const payload = parsed as SharePayload
+    if (!isLikelyInputState(payload.input)) return null
+    const prefs = payload.prefs && typeof payload.prefs === 'object' ? payload.prefs : defaultUnitPrefs
+    return { input: sanitizeInputState(payload.input), prefs }
   } catch {
     return null
   }
 }
 
-function toSharedHash(input: InputState): string {
-  const json = JSON.stringify(input)
+function toSharedHash(input: InputState, prefs: UnitPrefs): string {
+  const payload: SharePayload = { input, prefs }
+  const json = JSON.stringify(payload)
   return `#cfg=${window.btoa(encodeURIComponent(json))}`
 }
 
@@ -100,11 +120,12 @@ function useDebouncedInput(input: InputState, delayMs: number): InputState {
 
 function App() {
   const { t, i18n } = useTranslation()
-  const sharedInput = parseSharedInputFromHash()
-  const [input, setInput] = useState<InputState>(sharedInput ?? defaultInput)
+  const sharedPayload = parseSharedInputFromHash()
+  const [input, setInput] = useState<InputState>(sharedPayload?.input ?? defaultInput)
+  const [unitPrefs, setUnitPrefs] = useState<UnitPrefs>(sharedPayload?.prefs ?? defaultUnitPrefs)
   const [speedUnit, setSpeedUnit] = useState<SpeedUnit>('kmh')
   const [expertMode, setExpertMode] = useState(true)
-  const [profileName, setProfileName] = useState(sharedInput ? 'Shared Setup' : '')
+  const [profileName] = useState(sharedPayload ? 'Shared Setup' : '')
   const [profiles, setProfiles] = useState<SavedProfile[]>(() => listProfiles())
   const [statementAccepted, setStatementAccepted] = useState(() => localStorage.getItem(STATEMENT_KEY) === '1')
   const [copiedShare, setCopiedShare] = useState(false)
@@ -118,7 +139,7 @@ function App() {
   }
 
   const shareCurrentSetup = async () => {
-    const url = `${window.location.origin}${window.location.pathname}${toSharedHash(input)}`
+    const url = `${window.location.origin}${window.location.pathname}${toSharedHash(input, unitPrefs)}`
     try {
       await navigator.clipboard.writeText(url)
       setCopiedShare(true)
@@ -226,6 +247,26 @@ function App() {
             <option value="en">English</option>
             <option value="de">Deutsch</option>
           </select>
+          <button
+            className="toggle-view"
+            onClick={() =>
+              setUnitPrefs((prefs) =>
+                prefs.weight === 'g'
+                  ? {
+                      weight: 'oz',
+                      length: 'inch',
+                      temperature: 'F',
+                      speed: 'mph',
+                      pressure: 'inHg',
+                      altitude: 'ft',
+                      distance: 'mi',
+                    }
+                  : defaultUnitPrefs,
+              )
+            }
+          >
+            {unitPrefs.weight === 'g' ? 'Metric' : 'Imperial'}
+          </button>
           <button className="toggle-view" onClick={() => setExpertMode((v) => !v)}>
             {expertMode ? '◀ Simple view' : 'Expert view ▶'}
           </button>
@@ -282,6 +323,10 @@ function App() {
           <GeneralSection
             value={input.general}
             expertMode={expertMode}
+            onChange={(patch) => setInput((prev) => ({ ...prev, general: { ...prev.general, ...patch } }))}
+          />
+          <PayloadSection
+            value={{ payloadWeightG: input.general.payloadWeightG, payloadWeightUnit: input.general.payloadWeightUnit }}
             onChange={(patch) => setInput((prev) => ({ ...prev, general: { ...prev.general, ...patch } }))}
           />
           <BatterySection

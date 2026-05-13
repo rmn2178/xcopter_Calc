@@ -129,6 +129,12 @@ export function BatterySection({ value, onChange, expertMode }: Props) {
       )}
 
       {expertMode && (
+        <InputRow label="Battery Age (cycles)">
+          <NumberInput value={value.ageCycles} step={1} onChange={(v) => onChange({ ageCycles: Math.max(0, Math.round(v)) })} />
+        </InputRow>
+      )}
+
+      {expertMode && (
         <InputRow label="Cell Weight (g)">
           <NumberInput value={value.cellWeightG} step={0.1} onChange={(v) => onChange({ cellWeightG: v })} />
         </InputRow>

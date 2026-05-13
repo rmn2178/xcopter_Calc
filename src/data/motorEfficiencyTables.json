@@ -1,0 +1,22 @@
+{
+  "hobbywing-xrotor-2207-1750": [
+    { "torqueNm": 0.02, "efficiency": 0.55 },
+    { "torqueNm": 0.04, "efficiency": 0.68 },
+    { "torqueNm": 0.06, "efficiency": 0.74 },
+    { "torqueNm": 0.08, "efficiency": 0.78 },
+    { "torqueNm": 0.10, "efficiency": 0.80 }
+  ],
+  "sunnysky-x2216-1250": [
+    { "torqueNm": 0.015, "efficiency": 0.52 },
+    { "torqueNm": 0.035, "efficiency": 0.66 },
+    { "torqueNm": 0.055, "efficiency": 0.72 },
+    { "torqueNm": 0.075, "efficiency": 0.76 },
+    { "torqueNm": 0.095, "efficiency": 0.79 }
+  ],
+  "cobra-cm-2204-1960": [
+    { "torqueNm": 0.018, "efficiency": 0.58 },
+    { "torqueNm": 0.038, "efficiency": 0.70 },
+    { "torqueNm": 0.058, "efficiency": 0.76 },
+    { "torqueNm": 0.078, "efficiency": 0.80 }
+  ]
+}
